@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import { Button } from 'primereact/button'
 import { IconField } from 'primereact/iconfield'
 import { InputIcon } from 'primereact/inputicon'
@@ -6,14 +6,31 @@ import { InputText } from 'primereact/inputtext'
 
 const Busca = ({ onPrevisoesCarregadas }) => {
     const [cidadeDeBusca, setCidadeDeBusca] = useState('São Paulo')
+    const [resultados, setResultados] = useState([])
 
-    const onFormSubmit = (event) => {
-        event.preventDefault()
-        onPrevisoesCarregadas(cidadeDeBusca)
-    }
+    useEffect(() => {
+        const buscarPrevisoes = async () => {
+            const { data } = await onPrevisoesCarregadas(cidadeDeBusca)
+            setResultados(data)
+        }
+        if (cidadeDeBusca.length>=3 && !resultados.length === 0) {
+            buscarPrevisoes()
+        }
+        else
+        {
+            const timeoutId = setTimeout(() => {
+                if(cidadeDeBusca) {
+                    buscarPrevisoes()
+                }
+            }, 2000)
+            return () => clearTimeout(timeoutId)
+        }
+    }, [cidadeDeBusca])
+
+
 
   return (
-    <form onSubmit={onFormSubmit}>
+    
         <div
             className='flex flex-column'>
                 <IconField iconPosition='left'>
@@ -25,11 +42,8 @@ const Busca = ({ onPrevisoesCarregadas }) => {
                         value={cidadeDeBusca}/>
 
                 </IconField>
-                <Button
-                    label='OK'
-                    outlined/>
         </div>
-    </form>
+
   )
 }
 
