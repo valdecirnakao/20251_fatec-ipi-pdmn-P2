@@ -11,10 +11,9 @@ const openweathermapClient = axios.create({
 })
 
 app.get('/search', async (req, res) => {
-  const cidade = req.query.q
   const result = await openweathermapClient.get('/forecast', {
     params: {
-      q: cidade,
+      q: req.query.municipio,
       appid: process.env.OPENWEATHERMAP_KEY,
       units: 'metric',
       lang: 'pt_br',

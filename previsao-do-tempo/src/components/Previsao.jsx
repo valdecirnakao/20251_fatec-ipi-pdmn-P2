@@ -2,7 +2,7 @@ import striptags from 'striptags'
 
 const Previsao = ({dataHora, temperaturaMinima, temperaturaMaxima, umidadeRelativa, icone, descricao}) => {   
   return (
-    <div className='text-center p-3 border-1 surface-border m-2'>
+    <div className='text-center col-12 p-3 border-1 m-2'>
       <h2>{striptags(dataHora)}</h2>
       <p>Temperatura Mínima: {temperaturaMinima}°C</p>
       <p>Temperatura Máxima: {temperaturaMaxima}°C</p>

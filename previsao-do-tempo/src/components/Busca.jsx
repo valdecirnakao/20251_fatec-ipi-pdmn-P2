@@ -30,7 +30,7 @@ const Busca = ({ onPrevisoesCarregadas }) => {
             <IconField iconPosition='left'>
                 <InputIcon className = 'pi pi-search'></InputIcon>
                 <InputText 
-                    className='w-full'
+                    className='w-full ml-2 mr-2'
                     placeholder='Digite o nome da cidade'
                     onChange={(e) => setCidadeDeBusca(e.target.value)}
                     value={cidadeDeBusca}/>

@@ -1,18 +1,14 @@
-import Busca from './components/Busca'
-import env from 'react-dotenv'
 import { useState } from 'react'
-import Previsao from './components/Previsao.jsx'
+import Busca from './components/Busca'
 import openweathermapClient from './utils/openweathermapClient.js'
+import Previsao from './components/Previsao.jsx'
 
 const App = () => {
   const [previsoes, setPrevisoes] = useState([])
   const onPrevisoesCarregadas = async (cidade) => {
     await openweathermapClient.get('search', {
       params: {
-        q: cidade,
-        appid: env.OPENWEATHERMAP_KEY,
-        units: 'metric',
-        lang: 'pt_br'
+        municipio: cidade
       }
     }).then(result => setPrevisoes(result.data.list))
   }
