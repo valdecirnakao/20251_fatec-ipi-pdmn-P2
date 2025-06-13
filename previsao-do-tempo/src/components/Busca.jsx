@@ -1,5 +1,4 @@
-import React, { useState , useEffect } from 'react'
-import { Button } from 'primereact/button'
+import { useState , useEffect } from 'react'
 import { IconField } from 'primereact/iconfield'
 import { InputIcon } from 'primereact/inputicon'
 import { InputText } from 'primereact/inputtext'
@@ -10,14 +9,13 @@ const Busca = ({ onPrevisoesCarregadas }) => {
 
     useEffect(() => {
         const buscarPrevisoes = async () => {
-            const { data } = await onPrevisoesCarregadas(cidadeDeBusca)
+            const data = await onPrevisoesCarregadas(cidadeDeBusca)
             setResultados(data)
         }
-        if (cidadeDeBusca.length>=3 && !resultados.length === 0) {
+        if (!cidadeDeBusca && cidadeDeBusca.length>=3 && !resultados.length === 0) {
             buscarPrevisoes()
         }
-        else
-        {
+        else {
             const timeoutId = setTimeout(() => {
                 if(cidadeDeBusca) {
                     buscarPrevisoes()
@@ -27,24 +25,18 @@ const Busca = ({ onPrevisoesCarregadas }) => {
         }
     }, [cidadeDeBusca])
 
-
-
-  return (
-    
-        <div
-            className='flex flex-column'>
-                <IconField iconPosition='left'>
-                    <InputIcon className = 'pi pi-search'></InputIcon>
-                    <InputText 
-                        className='w-full'
-                        placeholder='Digite o nome da cidade'
-                        onChange={(e) => setCidadeDeBusca(e.target.value)}
-                        value={cidadeDeBusca}/>
-
-                </IconField>
+    return (   
+        <div className='flex flex-column'>
+            <IconField iconPosition='left'>
+                <InputIcon className = 'pi pi-search'></InputIcon>
+                <InputText 
+                    className='w-full'
+                    placeholder='Digite o nome da cidade'
+                    onChange={(e) => setCidadeDeBusca(e.target.value)}
+                    value={cidadeDeBusca}/>
+            </IconField>
         </div>
-
-  )
+    )
 }
 
 export default Busca
