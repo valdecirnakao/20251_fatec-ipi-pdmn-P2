@@ -7,19 +7,20 @@ const app = express()
 app.use(cors())
 
 const openweathermapClient = axios.create({
-  baseURL: 'https://api.openweathermap.org/data/2.5/'
+  baseURL: 'https://api.openweathermap.org/data/2.5'
 })
 //http://localhost:3000/search
 //GET /forecast () => {}
 //api.openweathermap.org/data/2.5/forecast?q={cidade}&appid={API_key}&units=metric
 app.get('/forecast', async (req, res) => {
-    const query = req.query.query
+    const cidade = req.query.query
     const result = await openweathermapClient.get('/forecast', {
         params: {
-            q: query,
+            q: cidade,
             appid: process.env.OPENWEATHERMAP_KEY,
             lang: 'pt_br',
-            units: 'metric'
+            units: 'metric',
+            mode: 'json'
         }
     })
     res.json(result.data)
